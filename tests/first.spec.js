@@ -10,7 +10,15 @@ test('first test', async ({ page }) => {
 
   //--clicks just before :(
   // const element = document.getElementsByClassName('.button-text');
-  await page.locator('.carousel-item >> nth=0').click('delay: 2000');
+  //await page.locator('.carousel-item >> nth=0').click('delay: 2000');
+
+  //--using codegen
+  await page.locator('[aria-label="Move\\ to\\ next\\ slide"]').click();
+  await page.locator('[aria-label="Move\\ to\\ next\\ slide"]').click();
+  await Promise.all([
+    page.waitForNavigation(),
+    page.locator('span:has-text("Sign up now")').first().click()
+  ]);
 
   await expect(page.locator('h1')).toHaveText('RAC Breakdown Cover');
 
